@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBAG - Qui suis-je</title>
+    <style>
+        /* =========================================================
+           POLICES
+        ========================================================= */
+        @font-face {
+            font-family: 'onest';
+            src: url('assets/fonts/Satoshi-Regular.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'onest';
+            src: url('assets/fonts/Satoshi-Medium.otf') format('opentype');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'onest';
+            src: url('assets/fonts/Satoshi-Black.otf') format('opentype');
+            font-weight: 900;
+            font-style: normal;
+        }
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border: none;
+        }
+
+        /* =========================================================
+           BODY
+        ========================================================= */
+        body {
+            font-family: 'onest', sans-serif;
+            padding: 20px;
+            background-color: #F2F4EE;
+            color: #3E4B53;
+            scroll-behavior: auto;
+        }
+
+        /* =========================================================
+           GRILLE PRINCIPALE
+        ========================================================= */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            width: 100%;
+            font-weight: 400;
+        }
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+        .logo {
+            grid-column: 1;
+            width: 85px;
+            height: 51px;
+            object-fit: contain;
+        }
+
+        .header-title {
+            grid-column: 5;
+            font-size: 14px;
+            font-weight: 900;
+            align-self: start;
+            white-space: nowrap;
+        }
+
+        .header-mb {
+            grid-column: 10;
+            font-size: 14px;
+            font-weight: 900;
+            align-self: start;
+        }
+
+        .header-right {
+            grid-column: 11 / 13;
+            justify-self: end;
+            font-size: 14px;
+            font-weight: 900;
+            white-space: nowrap;
+            align-self: start;
+        }
+
+        /* =========================================================
+           INTRO
+        ========================================================= */
+        .intro {
+            margin-top: 40px;
+            grid-column: 5 / 10;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        /* =========================================================
+           SECTION
+        ========================================================= */
+        .section-row {
+            grid-column: 1 / 13;
+            margin-top: 240px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 5px;
+            align-items: baseline;
+        }
+
+        .section-title {
+            grid-column: 1 / 12;
+            font-size: 14px;
+            font-weight: 900;
+        }
+
+        .section-client {
+            grid-column: 1 / 6;
+            font-size: 14px;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        /* =========================================================
+           GALERIE
+        ========================================================= */
+        .gallery {
+            margin-top: -10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            grid-column: 1 / 13;
+            width: 100%;
+        }
+
+        /* =========================================================
+           CARTES
+        ========================================================= */
+        .square {
+            width: calc((100% - 40px) / 3);
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* =========================================================
+           IMAGES CLASSIQUES
+        ========================================================= */
+        .image-square img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .image-square:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* =========================================================
+           CARTES AVEC TEXTE CENTRÉ
+        ========================================================= */
+        .text-center-card {
+            width: calc((100% - 40px) / 3);
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            position: relative;
+            background-color: #F2F4EE;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #3E4B53;
+            font-size: 18px;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .text-center-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: blur(5px) grayscale(100%);
+            transform: scale(1.01);
+        }
+
+        /* Carte "Votre projet" avec cadre en pointillés */
+        .text-center-card.project-card {
+            border: 2px dashed #3E4B53;
+            background-color: #F2F4EE;
+        }
+
+        .text-center-card.project-card:hover {
+            transform: scale(1.02);
+        }
+
+        /* Texte pour la carte "Office du Tourisme" */
+        .text-center-card.office-card div {
+            position: absolute;
+            color: #F2F4EE;
+            text-transform: uppercase;
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        /* =========================================================
+           SLIDER
+        ========================================================= */
+        .slider {
+            position: relative;
+            width: calc((100% - 40px) / 3);
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background-color: #F2F4EE;
+        }
+
+        /* =========================================================
+           PISTE DU SLIDER
+        ========================================================= */
+        .slides {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            transition: transform 0.4s ease;
+        }
+
+        .slides > * {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* =========================================================
+           IMAGES DES SLIDERS
+        ========================================================= */
+        .slides img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            background-color: #F2F4EE;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .slider:hover .slides img {
+            filter: grayscale(0%);
+        }
+
+        /* =========================================================
+           CARTE INFO
+        ========================================================= */
+        .info-card {
+            width: 453px !important;
+            height: 453px !important;
+            min-width: 453px;
+            min-height: 453px;
+            max-width: 453px;
+            max-height: 453px;
+            background-color: #F2F4EE;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #3E4B53;
+            font-size: 18px;
+            font-weight: 900;
+            flex: 0 0 453px !important;
+            box-sizing: border-box;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+        }
+
+        /* =========================================================
+           FLÈCHES
+        ========================================================= */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border: none;
+            cursor: pointer;
+            background: #3E4B53;
+            color: white;
+            font-size: 20px;
+            line-height: 1;
+            z-index: 10;
+            transition: background 0.25s ease;
+        }
+
+        .slider-arrow:hover {
+            background: none;
+        }
+
+        .slider-arrow.left {
+            left: 10px;
+        }
+
+        .slider-arrow.right {
+            right: 10px;
+        }
+
+        /* =========================================================
+           OVERLAY
+        ========================================================= */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(62, 75, 83, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            opacity: 1;
+            visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: visibility 0.3s ease;
+        }
+
+        .overlay.active {
+            visibility: visible;
+        }
+
+        /* =========================================================
+           CONTENU DE L'OVERLAY (GRID)
+        ========================================================= */
+        .overlay-content-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .overlay-title {
+            grid-column: 5;
+            font-size: 18px;
+            font-weight: 900;
+            white-space: nowrap;
+            color: #F2F4EE;
+            text-transform: uppercase;
+        }
+
+        .overlay-text {
+            grid-column: 5 / 10;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.4;
+            color: #F2F4EE;
+            margin-top: 20px;
+        }
+
+        /* =========================================================
+           LIENS
+        ========================================================= */
+        .gallery a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* =========================================================
+           CONTACT
+        ========================================================= */
+        .contact-section {
+            grid-column: 12;
+            margin-top: 600px;
+            width: 280px;
+            align-self: start;
+            text-align: left;
+        }
+
+        .contact-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: #3E4B53;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .contact-details {
+            width: 100%;
+        }
+
+        .contact-details p {
+            font-size: 18px;
+            font-weight: 900;
+            color: #3E4B53;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+        @media (max-width: 900px) {
+            .square,
+            .slider,
+            .text-center-card {
+                width: calc((100% - 20px) / 2);
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            .grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 15px;
+            }
+
+            .logo {
+                grid-column: 1;
+            }
+
+            .header-title {
+                grid-column: 2;
+            }
+
+            .header-mb {
+                grid-column: 3;
+            }
+
+            .header-right {
+                grid-column: 4;
+            }
+
+            .intro {
+                grid-column: 1 / 5;
+                margin-top: 40px;
+            }
+
+            .section-row {
+                grid-column: 1 / 5;
+                margin-top: 120px;
+            }
+
+            .gallery {
+                grid-column: 1 / 5;
+            }
+
+            .square,
+            .slider,
+            .text-center-card {
+                width: 100%;
+            }
+
+            .info-card {
+                width: 100% !important;
+                height: 100% !important;
+                min-width: 100%;
+                min-height: 100%;
+                max-width: 100%;
+                max-height: 100%;
+                flex: 0 0 100% !important;
+            }
+
+            .overlay-content-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .overlay-title {
+                grid-column: 1 / 5;
+            }
+
+            .overlay-text {
+                grid-column: 1 / 5;
+            }
+
+            .contact-section {
+                grid-column: 1 / 5;
+                margin-top: 100px;
+                width: 100%;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid">
+        <!-- =====================================================
+             HEADER
+        ====================================================== -->
+        <img class="logo" src="assets/logo_mbag.png" alt="Logo MBAG">
+        <div class="header-title">À PROPOS</div>
+        <div class="header-mb">MB</div>
+        <div class="header-right">ATELIER GRAPHIQUE</div>
+
+        <!-- =====================================================
+             INTRO
+        ====================================================== -->
+        <div class="intro">
+            Graphiste freelance depuis peu,
+            je vous invite à découvrir une sélection
+            de mes premiers projets.
+            Entre réalisation de logo,
+            création d'affiches et brochure,
+            ce portfolio retrace les débuts
+            de mon parcours créatif et de ma pratique
+            du design.
+        </div>
+
+        <!-- =====================================================
+             SECTION
+        ====================================================== -->
+        <div class="section-row">
+            <div class="section-title">RÉALISATION 2026</div>
+            <div class="section-client">
+                THEOASSO / YOUSG / OFFICE DU TOURISME DU DOUBS / MON DESIGN
+            </div>
+        </div>
+
+        <!-- =====================================================
+             GALERIE
+        ====================================================== -->
+        <div class="gallery">
+            <!-- =================================================
+                 THEOASSO
+            ================================================== -->
+            <div class="slider square">
+                <div class="slides" id="theoasso-slides">
+                    <img src="assets/photo/theoasso_logo.webp" alt="Theoasso">
+                    <img src="assets/photo/theoasso_logo_2.webp" alt="Theoasso">
+                    <div class="info-card">INFO</div>
+                </div>
+                <button class="slider-arrow left" type="button" aria-label="Image précédente">&#10094;</button>
+                <button class="slider-arrow right" type="button" aria-label="Image suivante">&#10095;</button>
+            </div>
+
+            <!-- =================================================
+                 YOUSG
+            ================================================== -->
+            <div class="slider square">
+                <div class="slides" id="yousg-slides">
+                    <img src="assets/photo/yousg_poster_mockup.webp" alt="Yousg poster mockup">
+                    <img src="assets/photo/yousg_hophophop.webp" alt="Yousg Hop Hop Hop">
+                    <img src="assets/photo/yousg_brochure_mockup.webp" alt="Yousg brochure">
+                    <img src="assets/photo/yousg.webp" alt="Yousg poster">
+                    <div class="info-card">INFOS</div>
+                </div>
+                <button class="slider-arrow left" type="button" aria-label="Image précédente">&#10094;</button>
+                <button class="slider-arrow right" type="button" aria-label="Image suivante">&#10095;</button>
+            </div>
+
+            <!-- =================================================
+                 OFFICE DU TOURISME (image floutée + texte)
+            ================================================== -->
+            <div class="text-center-card office-card square">
+                <img src="assets/photo/office_mockup.webp" alt="Office du Tourisme">
+                <div>PROJET EN COURS</div>
+            </div>
+
+            <!-- =================================================
+                 MBAG VISIT
+            ================================================== -->
+            <a href="mbag-visit.html" class="square image-square">
+                <img src="assets/photo/mbag_visit.webp" alt="MBAG Visit">
+            </a>
+
+            <!-- =================================================
+                 NOUVELLE CARTE : VOTRE PROJET
+            ================================================== -->
+            <div class="text-center-card project-card square" id="projectCard">
+                <div>VOTRE PROJET ?</div>
+            </div>
+        </div>
+
+        <!-- =====================================================
+             CONTACT (NOUVEAU CONTENU MINIMALISTE)
+        ====================================================== -->
+        <div class="contact-section" id="contactSection">
+            <h2 class="contact-title">CONTACT</h2>
+            <div class="contact-details">
+                <p>mbag@ik.me</p>
+                <p>06.79.62.10.66.</p>
+                <p>malt.fr</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         OVERLAY INFO
+    =========================================================== -->
+    <div class="overlay" id="infoOverlay">
+        <div class="overlay-content-grid" id="overlayContentGrid">
+            <div class="overlay-title" id="overlayTitle">Informations du projet</div>
+            <div class="overlay-text" id="overlayText">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* =========================================================
+           TEXTE POUR CHAQUE OVERLAY
+        =========================================================== */
+        const overlayTexts = {
+            "theoasso-slides": {
+                title: "Informations du projet - THEOASSO",
+                text: "J’ai eu le plaisir de participer à la création du logo et de l’identité visuelle de Theoasso, un projet dédié aux associations et à leurs besoins en matière de gestion comptable et financière. Ce projet m’a permis de travailler aux côtés de Cobetix, société lyonnaise spécialisée dans le développement de solutions numériques."
+            },
+            "yousg-slides": {
+                title: "Informations du projet - YOUSG",
+                text: "YOUSG est une école de musique à Besançon, spécialisée dans le jazz, le hip-hop et l’improvisation. Je participe régulièrement à la création d’affiches pour leurs concerts, stages et différents événements, en adaptant chaque visuel à l’univers musical et à l’identité de l’école."
+            }
+        };
+
+        /* =========================================================
+           OVERLAY
+        =========================================================== */
+        const overlay = document.getElementById('infoOverlay');
+        const overlayTitle = document.getElementById('overlayTitle');
+        const overlayText = document.getElementById('overlayText');
+        const projectCard = document.getElementById('projectCard');
+        const contactSection = document.getElementById('contactSection');
+
+        let currentSliderId = null;
+
+        overlay.addEventListener('click', function () {
+            overlay.classList.remove('active');
+        });
+
+        /* =========================================================
+           FONCTION POUR UN SCROLL LENT VERS LE BAS
+        =========================================================== */
+        function smoothScrollToBottom(duration) {
+            const start = window.scrollY;
+            const end = document.body.scrollHeight - window.innerHeight;
+            const startTime = performance.now();
+
+            function scrollStep(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeProgress = progress * (2 - progress); // Easing pour un mouvement plus naturel
+
+                window.scrollTo(0, start + (end - start) * easeProgress);
+
+                if (progress < 1) {
+                    requestAnimationFrame(scrollStep);
+                }
+            }
+
+            requestAnimationFrame(scrollStep);
+        }
+
+        /* =========================================================
+           SCROLL VERS CONTACT AU SURVOL DE "VOTRE PROJET ?"
+        =========================================================== */
+        projectCard.addEventListener('mouseenter', function() {
+            smoothScrollToBottom(300); // Durée de 800ms
+        });
+
+        /* =========================================================
+           INITIALISATION DES SLIDERS
+        =========================================================== */
+        function initSlider(sliderId) {
+            const slider = document.getElementById(sliderId);
+            if (!slider) return;
+
+            let currentSlide = 0;
+            const totalSlides = slider.children.length;
+            const infoCardIndex = totalSlides - 1;
+            const sliderContainer = slider.parentElement;
+            const leftButton = sliderContainer.querySelector('.slider-arrow.left');
+            const rightButton = sliderContainer.querySelector('.slider-arrow.right');
+
+            function updateSlider() {
+                slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+                if (currentSlide === infoCardIndex) {
+                    currentSliderId = sliderId;
+                    const textData = overlayTexts[sliderId];
+                    if (textData) {
+                        overlayTitle.textContent = textData.title;
+                        overlayText.textContent = textData.text;
+                    }
+                    overlay.classList.add('active');
+                }
+            }
+
+            function next() {
+                currentSlide++;
+                if (currentSlide >= totalSlides) currentSlide = 0;
+                updateSlider();
+            }
+
+            function prev() {
+                currentSlide--;
+                if (currentSlide < 0) currentSlide = totalSlides - 1;
+                if (currentSlide !== infoCardIndex) {
+                    overlay.classList.remove('active');
+                }
+                updateSlider();
+            }
+
+            if (leftButton) leftButton.addEventListener('click', prev);
+            if (rightButton) rightButton.addEventListener('click', next);
+
+            updateSlider();
+        }
+
+        /* =========================================================
+           LANCEMENT
+        =========================================================== */
+        document.addEventListener('DOMContentLoaded', function () {
+            initSlider('theoasso-slides');
+            initSlider('yousg-slides');
+        });
+    </script>
+</body>
+</html>
